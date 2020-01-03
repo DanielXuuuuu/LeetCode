@@ -25,9 +25,9 @@
 
 #### 解法一
 
-这是我最开始自己写的解法，利用了回文串的对称特性。
+这是我最开始自己写的解法，思想和中心扩展法相同，利用了回文串的对称特性。
 
-...太菜了，代码又臭又长。
+...但是太菜了，代码又臭又长。
 
 ```c++
 // 执行用时 :28 ms, 在所有 cpp 提交中击败了80.03%的用户
@@ -146,4 +146,54 @@ public:
 
 ### 解法三
 
-TODO：Manacher算法
+**Manacher算法**
+
+核心的思想还是中心扩展法，但是由于在最基本的中心扩展法中，回文子串长度会出现奇数和偶数的情况，且经常需要对于同一个位置遍历好几遍，因此效率不高。Manacher算法正是解决了这一问题，把时间复杂度降到了O(n)。
+
+具体实现方法之后补充。可见[参考](https://segmentfault.com/a/1190000003914228)
+
+```c++
+// 执行用时 :16 ms, 在所有 cpp 提交中击败了91.09%的用户
+// 内存消耗 :9.4 MB, 在所有 cpp 提交中击败了74.15%的用户
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        string temp(s);
+        // 插入#
+        for(int i = 0; i <= temp.size(); i+=2){
+            temp.insert(i, 1, '#');
+        }
+
+        int maxRight = 0, pos = 0, maxLen = 0, maxPos = 0;
+        int RL[2005];
+        RL[0] = 1;
+
+        for(int i = 0; i < temp.size(); i++){
+            if(i < maxRight){
+                RL[i] = min(RL[2 * pos - i], maxRight - i + 1);
+            }else{
+                RL[i] = 1;
+            }
+
+            while(i - RL[i] >= 0 && i + RL[i] < temp.size() && temp[i - RL[i]] == temp[i + RL[i]]){
+                RL[i]++;
+            }
+
+            if(RL[i] + i - 1 > maxRight){
+                maxRight = RL[i] + i - 1;
+                pos = i;
+            }
+
+            if(RL[i] > maxLen){
+                maxLen = RL[i];
+                maxPos = i;
+            }
+        }
+
+        int originPos = (maxPos - maxLen + 1) / 2;
+        return s.substr(originPos, maxLen - 1);
+    }
+};
+```
+
