@@ -10,5 +10,5 @@
 
 | 类型                     | 算法         | 对应题目                                                     |
 | ------------------------ | ------------ | ------------------------------------------------------------ |
-| 寻找字符串中最长的回文串 | Manacher算法 | [5. Longest Palindromic Substring]([https://github.com/DanielXuuuuu/LeetCode/tree/master/5.%20Longest%20Palindromic%20Substring](https://github.com/DanielXuuuuu/LeetCode/tree/master/5. Longest Palindromic Substring)) |
+| 寻找字符串中最长的回文串 | Manacher算法 | [5. Longest Palindromic Substring](https://github.com/DanielXuuuuu/LeetCode/tree/master/5.%20Longest%20Palindromic%20Substring) |
 
