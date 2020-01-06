@@ -77,7 +77,30 @@ public:
 
 #### 解法二
 
-迭代法，依次考虑空集、一个元素的子集、两个元素的子集...
+迭代法。利用子集的特点，n个不重复元素集合的子集个数是2的n次方，也就是每多增加一个元素，子集个数也就翻倍。那么，我们就可以顺序遍历原始数组，每一次将上一步的全部自己复制一份并都加入新的数。
+
+```c++
+// 执行用时 :4 ms, 在所有 C++ 提交中击败了99.55%的用户
+// 内存消耗 :8.8 MB, 在所有 C++ 提交中击败了96.19%的用户
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+
+        vector<vector<int>> res;
+        res.push_back({});
+        for(int i = 0; i < nums.size(); i++){
+            int size = res.size();
+            for(int j = 0; j < size; j++){
+                vector<int> temp = res[j];
+                temp.push_back(nums[i]);
+                res.push_back(temp);
+            }
+        }
+        return res;
+    }
+};
+```
 
 
 
